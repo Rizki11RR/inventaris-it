@@ -8,7 +8,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ManajemenController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -37,6 +37,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/manajemen/dashboard', [ManajemenController::class, 'index'])->name('manajemen.dashboard');
     });
 
+});
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/users', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::post('/users', [AdminController::class, 'store'])->name('admin.users.store');
+    Route::put('/users/{user}', [AdminController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -47,17 +47,22 @@
         </div>
         
         <div class="dropdown">
-            <button class="btn btn-white bg-white border dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0d6efd&color=fff" class="rounded-circle me-2" width="25">
-                {{ Auth::user()->name }}
+            <button class="btn p-3 btn-white bg-white border dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Halo, {{ Auth::user()->name }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i> Profil</a></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                        <i class="bi bi-person me-2"></i> Profil
+                    </a>
+                </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i> Logout</button>
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </button>
                     </form>
                 </li>
             </ul>

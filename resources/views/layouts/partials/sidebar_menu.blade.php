@@ -7,14 +7,27 @@
 </a>
 
 @if($role == 'admin')
-    <a href="#" class="nav-link"><i class="bi bi-people"></i> Manajemen User</a>
-    <div class="px-4 mt-3 mb-2 small text-muted fw-bold">MASTER DATA</div>
-    <a href="{{ route('categories.index') }}" class="nav-link"><i class="bi bi-tag"></i> Kategori Perangkat</a>
-    <a href="#" class="nav-link"><i class="bi bi-geo-alt"></i> Data Lokasi</a>
+    <div class="px-4 mt-3 mb-2 small text-muted fw-bold text-uppercase">Manajemen Sistem</div>
     
-    <div class="px-4 mt-3 mb-2 small text-muted fw-bold">METODE AHP</div>
-    <a href="#" class="nav-link"><i class="bi bi-calculate"></i> Kriteria & Bobot</a>
-
+    <a href="{{ route('admin.users.index') }}" 
+       class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+        <i class="bi bi-people"></i> Manajemen User
+    </a>
+    
+    <div class="px-4 mt-3 mb-2 small text-muted fw-bold text-uppercase">Master Data</div>
+    <a href="{{ route('categories.index') }}" 
+       class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+        <i class="bi bi-tag"></i> Kategori Perangkat
+    </a>
+    
+    <a href="#" class="nav-link">
+        <i class="bi bi-geo-alt"></i> Data Lokasi
+    </a>
+    
+    <div class="px-4 mt-3 mb-2 small text-muted fw-bold text-uppercase">Metode AHP</div>
+    <a href="#" class="nav-link">
+        <i class="bi bi-calculate"></i> Kriteria & Bobot
+    </a>
 @elseif($role == 'staff')
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold">INVENTARIS</div>
     <a href="#" class="nav-link"><i class="bi bi-display"></i> Data Perangkat</a>
