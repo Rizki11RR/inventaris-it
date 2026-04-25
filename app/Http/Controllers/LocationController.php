@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        $locations = Location::all();
+        return view('admin.locations.index', compact('locations'));
     }
 
     /**
@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -30,18 +30,18 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kategori' => 'required|string|max:255',
+            'nama_lokasi' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
         ]);
 
-        Category::create($validated);
-        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
+        Location::create($validated);
+        return redirect()->back()->with('success', 'Data Lokasi berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Location $location)
     {
         //
     }
@@ -49,31 +49,31 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Location $location)
     {
-        return view('categories.edit', compact('category'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Location $location)
     {
         $validated = $request->validate([
-            'nama_kategori' => 'required|string|max:255',
+            'nama_lokasi' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
         ]);
 
-        $category->update($validated);
-        return redirect()->back()->with('success', 'Kategori berhasil diperbarui!');
+        $location->update($validated);
+        return redirect()->back()->with('success', 'Data Lokasi berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Location $location)
     {
-        $category->delete();
-        return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
+        $location->delete();
+        return redirect()->back()->with('success', 'Data Lokasi berhasil dihapus!');
     }
 }

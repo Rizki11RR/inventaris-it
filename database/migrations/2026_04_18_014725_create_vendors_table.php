@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kategori'); // <--- Samakan dengan yang di Controller
-            $table->text('deskripsi')->nullable();
+            $table->string('nama_vendor');
+            $table->string('merk'); // Contoh: Asus, Dell, Cisco
+            $table->string('kontak')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('vendors');
     }
 };

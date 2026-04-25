@@ -5,19 +5,68 @@
 @section('content')
 <div class="container-fluid">
     <div class="card border-0 shadow-sm rounded-4 bg-white">
-        <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between">
-            <h5 class="fw-bold">Daftar Pengguna</h5>
+        <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">Daftar Pengguna</h5>
             <button class="btn btn-primary rounded-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 <i class="bi bi-plus-lg me-2"></i> Tambah User
             </button>
         </div>
         <div class="card-body px-4 pb-4">
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif
+            @push('scripts')
+            <script>
+                // 1. Alert untuk Pesan Success dari Session
+                @if(session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: "{{ session('success') }}",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        customClass: {
+                            popup: 'rounded-4'
+                        }
+                    });
+                @endif
+
+                // 2. Alert untuk Pesan Error dari Session
+                @if(session('error'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "{{ session('error') }}",
+                        customClass: {
+                            popup: 'rounded-4'
+                        }
+                    });
+                @endif
+
+                // 3. Konfirmasi Hapus Data
+                $('.btn-delete').on('click', function(e) {
+                    e.preventDefault();
+                    let form = $(this).closest('form');
+                    
+                    Swal.fire({
+                        title: 'Apakah anda yakin?',
+                        text: "Data user yang dihapus tidak dapat dikembalikan!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0d6efd',
+                        cancelButtonColor: '#718096',
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal',
+                        customClass: {
+                            popup: 'rounded-4',
+                            confirmButton: 'rounded-3',
+                            cancelButton: 'rounded-3'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            </script>
+            @endpush
 
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
@@ -40,19 +89,21 @@
                                 </span>
                             </td>
                             <td class="text-center">
+                                {{-- Tombol Edit --}}
                                 <button class="btn btn-sm btn-light border rounded-3 me-1" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}">
                                     <i class="bi bi-pencil-square text-primary"></i>
                                 </button>
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus user ini?')">
-                                    @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-light border rounded-3">
+                                
+                                {{-- Tombol Hapus --}}
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    @csrf 
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm btn-light border rounded-3 btn-delete">
                                         <i class="bi bi-trash text-danger"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
-
-                        @include('admin.users.edit_modal')
                         @endforeach
                     </tbody>
                 </table>
@@ -62,5 +113,9 @@
 </div>
 
 @include('admin.users.add_modal')
+
+@foreach($users as $user)
+    @include('admin.users.edit_modal')
+@endforeach
 
 @endsection

@@ -1,6 +1,6 @@
 <div class="modal fade" id="addUserModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('admin.users.store') }}" method="POST" class="modal-content border-0 rounded-4">
+        <form action="{{ route('admin.users.store') }}" method="POST" autocomplete="off" class="modal-content border-0 rounded-4">
             @csrf
             <div class="modal-header border-0">
                 <h5 class="fw-bold">Tambah Pengguna Baru</h5>
@@ -13,11 +13,11 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">EMAIL</label>
-                    <input type="email" name="email" class="form-control bg-light border-0" required>
+                    <input type="email" name="email" autocomplete="off" class="form-control bg-light border-0" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">PASSWORD</label>
-                    <input type="password" name="password" class="form-control bg-light border-0" required>
+                    <input type="password" name="password" autocomplete="new-password" class="form-control bg-light border-0" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">ROLE</label>

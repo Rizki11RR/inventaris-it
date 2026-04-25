@@ -6,6 +6,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ManajemenController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\CriteriaController;
+
+
+
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -39,11 +46,24 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+
+// Admin Route
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/users', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::get('/users', [AdminController::class, 'userIndex'])->name('admin.users.index');
     Route::post('/users', [AdminController::class, 'store'])->name('admin.users.store');
     Route::put('/users/{user}', [AdminController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('locations', LocationController::class);
+    Route::resource('vendors', VendorController::class);
+    Route::resource('statuses', StatusController::class);
+});
+
+Route::resource('criterias', CriteriaController::class);
+// Rute tambahan untuk Sub-Kriteria
+Route::post('/criterias/sub', [CriteriaController::class, 'storeSub'])->name('criterias.storeSub');
+Route::delete('/criterias/sub/{id}', [CriteriaController::class, 'destroySub'])->name('criterias.destroySub');
 require __DIR__.'/auth.php';

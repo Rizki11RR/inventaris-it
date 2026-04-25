@@ -10,9 +10,15 @@ class AdminController extends Controller
 {
     public function index() {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        return view('admin.dashboard');
     }
 
+    public function userIndex()
+    {
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
+    }
+    
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',

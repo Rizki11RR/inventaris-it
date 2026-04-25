@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kategori'); // <--- Samakan dengan yang di Controller
-            $table->text('deskripsi')->nullable();
+            $table->string('nama_status'); // Contoh: Tersedia, Dipinjam, Rusak
+            $table->string('warna'); // Simpan kode class bootstrap (success, danger, dsb)
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('statuses');
     }
 };
