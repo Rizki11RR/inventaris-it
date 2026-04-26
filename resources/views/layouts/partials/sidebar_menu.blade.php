@@ -37,9 +37,11 @@
     
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold text-uppercase">Metode AHP</div>
 
-    <a href="{{ route('criterias.index') }}" 
-    class="nav-link {{ request()->routeIs('criterias.*') ? 'active' : '' }}">
-        <i class="bi bi-calculate"></i> Kriteria & Bobot
+    <a href="{{ route('criterias.index') }}" class="nav-link {{ request()->routeIs('criterias.*') ? 'active' : '' }}">
+        <i class="bi-clipboard-data"></i> Kriteria & Bobot
+    </a>
+    <a href="{{ route('ahp.comparisons') }}" class="nav-link {{ request()->routeIs('ahp.comparisons') ? 'active' : '' }}">
+    <i class="bi bi-arrow-left-right"></i> Perbandingan Kriteria
     </a>
 @elseif($role == 'staff')
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold">INVENTARIS</div>

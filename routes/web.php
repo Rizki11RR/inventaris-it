@@ -10,9 +10,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\CriteriaController;
-
-
-
+use App\Http\Controllers\AHPController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -28,42 +26,47 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('categories', CategoryController::class);
-
+// Grouping Dashboard berdasarkan Role
 Route::middleware(['auth'])->group(function () {
-    
-    Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     });
     
-    Route::middleware(['auth', 'role:staff'])->group(function () {
+    Route::middleware(['role:staff'])->group(function () {
         Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('staff.dashboard');
     });
 
-    Route::middleware(['auth', 'role:manajemen'])->group(function () {
+    Route::middleware(['role:manajemen'])->group(function () {
         Route::get('/manajemen/dashboard', [ManajemenController::class, 'index'])->name('manajemen.dashboard');
     });
-
 });
 
-
-// Admin Route
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/users', [AdminController::class, 'userIndex'])->name('admin.users.index');
-    Route::post('/users', [AdminController::class, 'store'])->name('admin.users.store');
-    Route::put('/users/{user}', [AdminController::class, 'update'])->name('admin.users.update');
-    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
-});
-
+// Admin Area (Master Data & AHP Logic)
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    
+    // User Management
+    Route::prefix('admin')->group(function () {
+        Route::get('/users', [AdminController::class, 'userIndex'])->name('admin.users.index');
+        Route::post('/users', [AdminController::class, 'store'])->name('admin.users.store');
+        Route::put('/users/{user}', [AdminController::class, 'update'])->name('admin.users.update');
+        Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
+    });
+
+    // Master Data
     Route::resource('categories', CategoryController::class);
     Route::resource('locations', LocationController::class);
     Route::resource('vendors', VendorController::class);
     Route::resource('statuses', StatusController::class);
+    
+    // AHP - Kriteria & Sub-Kriteria
+    Route::resource('criterias', CriteriaController::class);
+    Route::post('/criterias/sub', [CriteriaController::class, 'storeSub'])->name('criterias.storeSub');
+    Route::delete('/criterias/sub/{id}', [CriteriaController::class, 'destroySub'])->name('criterias.destroySub');
+    
+    // AHP - Matriks Perbandingan & Kalkulasi
+    Route::get('/ahp/comparisons', [AHPController::class, 'index'])->name('ahp.comparisons');
+    Route::post('/ahp/comparisons', [AHPController::class, 'store'])->name('ahp.store_comparisons');
+    Route::get('/ahp/results', [AHPController::class, 'showResults'])->name('ahp.results');
 });
 
-Route::resource('criterias', CriteriaController::class);
-// Rute tambahan untuk Sub-Kriteria
-Route::post('/criterias/sub', [CriteriaController::class, 'storeSub'])->name('criterias.storeSub');
-Route::delete('/criterias/sub/{id}', [CriteriaController::class, 'destroySub'])->name('criterias.destroySub');
 require __DIR__.'/auth.php';

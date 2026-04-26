@@ -81,7 +81,7 @@
                 title: 'Berhasil!',
                 text: "{{ session('success') }}",
                 showConfirmButton: false,
-                timer: 2000,
+                timer: 1500,
                 timerProgressBar: true,
                 customClass: { popup: 'rounded-4' }
             });

@@ -30,7 +30,6 @@
 <aside class="sidebar">
     <div class="brand-section text-center"><i class="bi bi-cpu-fill"></i> IMUX CORP</div>
     <div class="nav nav-pills flex-column mt-4">
-        {{-- INI ADALAH STEP UPDATE UTAMA: Memanggil Sidebar --}}
         @include('layouts.partials.sidebar_menu')
     </div>
 </aside>
@@ -42,7 +41,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ ucfirst(Auth::user()->role) }}</a></li>
-                    <li class="breadcrumb-item active">Halaman Utama</li>
+                    <li class="breadcrumb-item active">@yield('header', 'Halaman Utama')</li>
                 </ol>
             </nav>
         </div>
