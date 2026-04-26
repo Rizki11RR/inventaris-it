@@ -11,6 +11,10 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\AHPController;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\AssessmentController;
+
+
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -34,6 +38,12 @@ Route::middleware(['auth'])->group(function () {
     
     Route::middleware(['role:staff'])->group(function () {
         Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('staff.dashboard');
+        Route::get('/staff/assets', [AssetController::class, 'index'])->name('staff.assets.index');
+        Route::post('/staff/assets', [AssetController::class, 'store'])->name('staff.assets.store');
+        Route::delete('/staff/assets/{asset}', [AssetController::class, 'destroy'])->name('staff.assets.destroy');
+        Route::put('/staff/assets/{asset}', [AssetController::class, 'update'])->name('staff.assets.update');
+        Route::get('/staff/assessments', [AssessmentController::class, 'index'])->name('staff.assessments.index');
+        Route::get('/staff/assessments/calculate/{asset}', [AssessmentController::class, 'create'])->name('staff.assessments.create');
     });
 
     Route::middleware(['role:manajemen'])->group(function () {

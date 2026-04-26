@@ -45,8 +45,10 @@
     </a>
 @elseif($role == 'staff')
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold">INVENTARIS</div>
-    <a href="#" class="nav-link"><i class="bi bi-display"></i> Data Perangkat</a>
-    <a href="#" class="nav-link"><i class="bi bi-clipboard-check"></i> Penilaian Kondisi</a>
+    <a href="{{ route('staff.assets.index') }}" class="nav-link {{ request()->routeIs('staff.assets.*') ? 'active' : '' }}"><i class="bi bi-display"></i> Data Perangkat</a>
+    <a href="{{ route('staff.assessments.index') }}" class="nav-link {{ request()->routeIs('staff.assessments.*') ? 'active' : '' }}">
+        <i class="bi bi-clipboard-check"></i> <span>Penilaian Kondisi</span>
+    </a>
     <a href="#" class="nav-link"><i class="bi bi-tools"></i> Riwayat Perawatan</a>
 
 @elseif($role == 'manajemen')
@@ -54,6 +56,3 @@
     <a href="#" class="nav-link"><i class="bi bi-pie-chart"></i> Grafik Aset</a>
     <a href="#" class="nav-link"><i class="bi bi-file-earmark-bar-graph"></i> Laporan Ranking AHP</a>
 @endif
-
-<div class="px-4 mt-3 mb-2 small text-muted fw-bold">AKUN</div>
-<a href="{{ route('profile.edit') }}" class="nav-link"><i class="bi bi-gear"></i> Pengaturan</a>
