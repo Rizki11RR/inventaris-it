@@ -3,16 +3,13 @@
 @section('header', 'Kriteria & Bobot AHP')
 
 @section('content')
-<div class="container-fluid">
-    <div class="card border-0 shadow-sm rounded-4 bg-white">
-        <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
-            <div>
-                <h5 class="fw-bold mb-0">Daftar Kriteria Penilaian</h5>
-                <p class="small text-muted mb-0">Kelola kriteria dan bobot nilai untuk perhitungan AHP</p>
-            </div>
-            <button class="btn btn-primary rounded-3 px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#addCriteriaModal">
-                <i class="bi bi-plus-lg me-2"></i> Tambah Kriteria
-            </button>
+<div class="container-fluid py-3">
+    <div class="card border-0 shadow-sm" style="border-radius: 1rem;">
+        <div class="card-header bg-white border-0 pt-4 pb-3 px-4 d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold text-dark mb-0"><i class="bi bi-bar-chart-fill me-2 text-primary"></i> Daftar Kriteria Penilaian</h5>
+                <button class="btn btn-primary btn-sm rounded-pill shadow-sm px-3" data-bs-toggle="modal" data-bs-target="#addCriteriaModal">
+                    <i class="bi bi-plus-lg me-1"></i> Tambah Kriteria
+                </button>
         </div>
         <div class="card-body px-4 pb-4">
             <div class="table-responsive">

@@ -3,105 +3,110 @@
 @section('header', 'Dashboard Staff IT')
 
 @section('content')
-<div class="container-fluid">
-    {{-- Ringkasan Status Inventaris --}}
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
-                <div class="card-body d-flex align-items-center p-3">
-                    <div class="flex-shrink-0 bg-primary bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-laptop text-primary fs-4"></i>
+<div class="container-fluid py-3">
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-laptop fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="text-muted small mb-1">Total Perangkat</h6>
-                        <h4 class="fw-bold mb-0">128</h4>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">TOTAL PERANGKAT</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalAssets }}</h3>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
-                <div class="card-body d-flex align-items-center p-3">
-                    <div class="flex-shrink-0 bg-success bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-check-circle text-success fs-4"></i>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-clipboard-x fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="text-muted small mb-1">Kondisi Baik</h6>
-                        <h4 class="fw-bold mb-0">112</h4>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">BELUM DINILAI</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $belumDinilai }}</h3>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
-                <div class="card-body d-flex align-items-center p-3">
-                    <div class="flex-shrink-0 bg-warning bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-exclamation-triangle text-warning fs-4"></i>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-exclamation-triangle fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="text-muted small mb-1">Perlu Maintenance</h6>
-                        <h4 class="fw-bold mb-0">12</h4>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">PERLU PERHATIAN</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $perangkatRusak }}</h3>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
-                <div class="card-body d-flex align-items-center p-3">
-                    <div class="flex-shrink-0 bg-danger bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-x-circle text-danger fs-4"></i>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-tools fs-3"></i>
                     </div>
                     <div>
-                        <h6 class="text-muted small mb-1">Rusak Berat</h6>
-                        <h4 class="fw-bold mb-0">4</h4>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">TOTAL MAINTENANCE</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalMaintenance }}</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row g-4">
-        {{-- Tabel Aktivitas Pemeliharaan Terakhir --}}
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold mb-0">Tugas Pemeliharaan Terbaru</h5>
-                    <a href="#" class="btn btn-sm btn-light rounded-pill px-3 border">Lihat Semua</a>
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm" style="border-radius: 1rem;">
+                <div class="card-header bg-white border-0 pt-4 pb-3 px-4 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold text-dark mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>5 Perawatan Terakhir</h6>
+                    <a href="{{ route('staff.maintenance.history') }}" class="btn btn-sm btn-light border rounded-pill">Lihat Semua</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="bg-light">
+                        <table class="table table-custom align-middle text-center mb-0">
+                            <thead>
                                 <tr>
-                                    <th class="px-4 py-3 border-0 small text-uppercase fw-bold text-muted">ID Perangkat</th>
-                                    <th class="py-3 border-0 small text-uppercase fw-bold text-muted">Nama Barang</th>
-                                    <th class="py-3 border-0 small text-uppercase fw-bold text-muted">Lokasi</th>
-                                    <th class="py-3 border-0 small text-uppercase fw-bold text-muted">Status</th>
-                                    <th class="py-3 border-0 text-center"></th>
+                                    <th class="ps-4 text-start">TANGGAL & PERANGKAT</th>
+                                    <th class="text-start">DETAIL KERUSAKAN</th>
+                                    <th>STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($recentMaintenances as $m)
                                 <tr>
-                                    <td class="px-4 fw-medium text-primary">#DEV-2024-001</td>
-                                    <td>Asus Vivobook A416</td>
-                                    <td>Lab RPL</td>
-                                    <td><span class="badge bg-warning bg-opacity-10 text-warning px-3 rounded-pill">Pending</span></td>
-                                    <td class="text-end px-4">
-                                        <button class="btn btn-sm btn-outline-primary rounded-pill px-3">Update Kondisi</button>
+                                    <td class="text-start ps-4">
+                                        <div class="fw-bold text-dark">{{ \Carbon\Carbon::parse($m->tanggal_perawatan)->format('d M Y') }}</div>
+                                        <div class="small text-muted">{{ $m->asset->kode_aset }} &bull; {{ $m->asset->nama_perangkat }}</div>
+                                    </td>
+                                    <td class="text-start">
+                                        <p class="mb-0 text-secondary" style="font-size: 0.85rem; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            {{ $m->detail_perbaikan }}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3">Selesai</span>
                                     </td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td class="px-4 fw-medium text-primary">#DEV-2024-042</td>
-                                    <td>PC Desktop Dell Optiplex</td>
-                                    <td>Ruang Staff</td>
-                                    <td><span class="badge bg-success bg-opacity-10 text-success px-3 rounded-pill">Selesai</span></td>
-                                    <td class="text-end px-4">
-                                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" disabled>Selesai</button>
-                                    </td>
+                                    <td colspan="3" class="py-4 text-center text-muted">Belum ada aktivitas perawatan baru.</td>
                                 </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
 </div>
 @endsection

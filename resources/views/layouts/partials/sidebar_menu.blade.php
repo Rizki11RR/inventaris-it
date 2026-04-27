@@ -37,11 +37,14 @@
     
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold text-uppercase">Metode AHP</div>
 
-    <a href="{{ route('criterias.index') }}" class="nav-link {{ request()->routeIs('criterias.*') ? 'active' : '' }}">
+    <a href="{{ route('criterias.index') }}" class="nav-link {{ request()->routeIs('criter  ias.*') ? 'active' : '' }}">
         <i class="bi-clipboard-data"></i> Kriteria & Bobot
     </a>
     <a href="{{ route('ahp.comparisons') }}" class="nav-link {{ request()->routeIs('ahp.comparisons') ? 'active' : '' }}">
-    <i class="bi bi-arrow-left-right"></i> Perbandingan Kriteria
+        <i class="bi bi-arrow-left-right"></i> Perbandingan Kriteria
+    </a>
+    <a class="nav-link {{ request()->is('admin/monitoring*') ? 'active' : '' }}" href="{{ route('admin.monitoring') }}">
+         <i class="bi bi-display"></i> Monitoring Penilaian
     </a>
 @elseif($role == 'staff')
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold">INVENTARIS</div>
@@ -52,10 +55,13 @@
     <a href="{{ route('staff.assessments.history') }}" class="nav-link {{ request()->routeIs('staff.assessments.history') ? 'active' : '' }}">
         <i class="bi bi-clock-history"></i> Riwayat Penilaian
     </a>
-    <a href="#" class="nav-link"><i class="bi bi-tools"></i> Riwayat Perawatan</a>
+    <a class="nav-link {{ Request::is('staff/maintenance*') ? 'active' : '' }}" href="{{ route('staff.maintenance.history') }}">
+        <i class="bi bi-tools me-2"></i> Riwayat Perawatan
+    </a>
 
 @elseif($role == 'manajemen')
-    <div class="px-4 mt-3 mb-2 small text-muted fw-bold">MONITORING</div>
-    <a href="#" class="nav-link"><i class="bi bi-pie-chart"></i> Grafik Aset</a>
-    <a href="#" class="nav-link"><i class="bi bi-file-earmark-bar-graph"></i> Laporan Ranking AHP</a>
+    <a href="{{ route('manajemen.laporan') }}" 
+    class="nav-link {{ Request::is('laporan-rekomendasi*') ? 'active' : '' }}">
+        <i class="bi bi-file-earmark-bar-graph me-2"></i> Laporan Ranking AHP
+    </a>
 @endif

@@ -21,8 +21,15 @@ class Asset extends Model
     ];
 
     // Relasi ke tabel-tabel yang sudah Anda buat migrasinya
-    public function category(): BelongsTo { return $this->belongsTo(Category::class); }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
     public function location(): BelongsTo { return $this->belongsTo(Location::class); }
     public function vendor(): BelongsTo { return $this->belongsTo(Vendor::class); }
     public function status(): BelongsTo { return $this->belongsTo(Status::class); }
+
+    public function maintenances() {
+    return $this->hasMany(Maintenance::class);
+}
 }

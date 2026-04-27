@@ -8,9 +8,30 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function index() {
-        $users = User::all();
-        return view('admin.dashboard');
+    public function index()
+    {
+        // 1. Menghitung Total Pengguna (Kelola User)
+        $totalUsers = \App\Models\User::count();
+
+        // 2. Menghitung Total Perangkat (Monitoring Sistem)
+        $totalAssets = \App\Models\Asset::count();
+
+        // 3. Menghitung Master Data (Contoh: Kategori & Lokasi)
+        // Pastikan Anda sudah memiliki Model Category dan Location
+        $totalKategori = \App\Models\Category::count();
+        $totalLokasi = \App\Models\Location::count();
+
+        // 4. Mengambil 5 User yang paling baru mendaftar
+        $recentUsers = \App\Models\User::orderBy('created_at', 'desc')->take(5)->get();
+
+        // Kirim data ke view dashboard admin
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalAssets',
+            'totalKategori',
+            'totalLokasi',
+            'recentUsers'
+        ));
     }
 
     public function userIndex()

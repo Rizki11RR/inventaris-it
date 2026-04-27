@@ -13,6 +13,10 @@ use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\AHPController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\MonitoringController;
+
+
 
 
 
@@ -46,10 +50,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/staff/assessments/calculate/{asset}', [AssessmentController::class, 'create'])->name('staff.assessments.create');
         Route::post('/staff/assessments/store', [AssessmentController::class, 'store'])->name('staff.assessments.store');
         Route::get('/staff/assessments/history', [AssessmentController::class, 'history'])->name('staff.assessments.history');
+        Route::post('/staff/maintenance/store', [MaintenanceController::class, 'store'])->name('staff.maintenance.store');
+        Route::get('/staff/maintenance/history', [MaintenanceController::class, 'index'])->name('staff.maintenance.history');
     });
 
     Route::middleware(['role:manajemen'])->group(function () {
         Route::get('/manajemen/dashboard', [ManajemenController::class, 'index'])->name('manajemen.dashboard');
+        Route::get('/laporan-rekomendasi', [ManajemenController::class, 'laporan'])->name('manajemen.laporan');
+        Route::get('/laporan-rekomendasi/cetak', [ManajemenController::class, 'cetak'])->name('manajemen.cetak');
     });
 });
 
@@ -62,7 +70,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/users', [AdminController::class, 'store'])->name('admin.users.store');
         Route::put('/users/{user}', [AdminController::class, 'update'])->name('admin.users.update');
         Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
-    });
+        Route::delete('/assessments/{id}/reset', [AssessmentController::class, 'reset'])->name('admin.assessments.reset');
+        Route::get('/monitoring', [MonitoringController::class, 'index'])->name('admin.monitoring');
+        Route::delete('/monitoring/{id}/reset', [MonitoringController::class, 'reset'])->name('admin.monitoring.reset');
+    }); 
 
     // Master Data
     Route::resource('categories', CategoryController::class);

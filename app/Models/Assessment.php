@@ -21,9 +21,9 @@ class Assessment extends Model
 
     public function asset()
     {
-        return $this->belongsTo(Asset::class);
+        return $this->belongsTo(Asset::class, 'asset_id');
     }
-
+    
     public function user()
     {
         return $this->belongsTo(User::class);

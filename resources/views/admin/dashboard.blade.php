@@ -1,131 +1,118 @@
 @extends('layouts.app')
 
-@section('header', 'Admin Dashboard')
+@section('header', 'Dashboard Admin IT')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm rounded-4 bg-white p-3 h-100">
-                <div class="d-flex align-items-center">
-                    <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-people-fill text-primary fs-4"></i>
+<div class="container-fluid py-3">
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-people fs-3"></i>
                     </div>
                     <div>
-                        <div class="text-muted small fw-bold text-uppercase">Total User</div>
-                        <h3 class="fw-bold mb-0">24</h3>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">TOTAL PENGGUNA</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalUsers }}</h3>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm rounded-4 bg-white p-3 h-100">
-                <div class="d-flex align-items-center">
-                    <div class="bg-success bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-pc-display text-success fs-4"></i>
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-laptop fs-3"></i>
                     </div>
                     <div>
-                        <div class="text-muted small fw-bold text-uppercase">Perangkat</div>
-                        <h3 class="fw-bold mb-0">152</h3>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">TOTAL PERANGKAT</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalAssets }}</h3>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm rounded-4 bg-white p-3 h-100">
-                <div class="d-flex align-items-center">
-                    <div class="bg-warning bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-tools text-warning fs-4"></i>
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-tags fs-3"></i>
                     </div>
                     <div>
-                        <div class="text-muted small fw-bold text-uppercase">Perlu Cek</div>
-                        <h3 class="fw-bold mb-0">12</h3>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">MASTER KATEGORI</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalKategori }}</h3>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm rounded-4 bg-white p-3 h-100">
-                <div class="d-flex align-items-center">
-                    <div class="bg-danger bg-opacity-10 p-3 rounded-3 me-3">
-                        <i class="bi bi-exclamation-octagon text-danger fs-4"></i>
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 1rem;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-geo-alt fs-3"></i>
                     </div>
                     <div>
-                        <div class="text-muted small fw-bold text-uppercase">Rusak Berat</div>
-                        <h3 class="fw-bold mb-0">5</h3>
+                        <p class="text-muted mb-0 fw-bold" style="font-size: 0.85rem;">MASTER LOKASI</p>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalLokasi }}</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row g-4">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-4 bg-white">
-                <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold mb-0">Aktivitas Terakhir</h5>
-                    <button class="btn btn-sm btn-primary">Lihat Semua</button>
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm" style="border-radius: 1rem;">
+                <div class="card-header bg-white border-0 pt-4 pb-3 px-4 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold text-dark mb-0"><i class="bi bi-person-plus me-2 text-primary"></i>5 Pengguna Terdaftar Terakhir</h6>
                 </div>
-                <div class="card-body px-4">
+                <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr class="small text-uppercase fw-bold text-muted">
-                                    <th>Kode Aset</th>
-                                    <th>Perangkat</th>
-                                    <th>Kategori</th>
-                                    <th>Status</th>
+                        <table class="table table-custom align-middle text-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4 text-start">NAMA PENGGUNA</th>
+                                    <th>EMAIL</th>
+                                    <th>ROLE</th>
+                                    <th>TANGGAL DAFTAR</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($recentUsers as $user)
                                 <tr>
-                                    <td><span class="badge bg-light text-dark border">#IT-001</span></td>
-                                    <td>Laptop Dell Latitude 5420</td>
-                                    <td>Laptop</td>
-                                    <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">Normal</span></td>
+                                    <td class="text-start ps-4">
+                                        <div class="fw-bold text-dark">{{ $user->name }}</div>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">{{ $user->email }}</span>
+                                    </td>
+                                    <td>
+                                        @if($user->role == 'admin')
+                                            <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3">Admin IT</span>
+                                        @elseif($user->role == 'staff')
+                                            <span class="badge bg-primary-subtle text-primary border border-primary rounded-pill px-3">Staff IT</span>
+                                        @else
+                                            <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3">Manajemen</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="small text-muted">{{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</span>
+                                    </td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td><span class="badge bg-light text-dark border">#IT-042</span></td>
-                                    <td>Printer Epson L3110</td>
-                                    <td>Peripheral</td>
-                                    <td><span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3">Maintenance</span></td>
+                                    <td colspan="4" class="py-4 text-center text-muted">Belum ada pengguna yang terdaftar.</td>
                                 </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                <div class="card-body p-4 text-center">
-                    <div class="bg-primary bg-opacity-10 p-4 rounded-circle d-inline-block mb-3">
-                        <i class="bi bi-database-fill-gear text-primary fs-1"></i>
-                    </div>
-                    <h6 class="fw-bold">Manajemen Master Data</h6>
-                    <p class="text-muted small mb-4">Kelola kategori, lokasi, dan vendor perangkat IT dalam satu tempat.</p>
-                    <div class="d-grid gap-2">
-                        <a href="{{ route('categories.index') }}" class="btn btn-primary rounded-3 py-2">
-                            <i class="bi bi-tag me-2"></i>Kategori Perangkat
-                        </a>
-                        <button class="btn btn-outline-primary rounded-3 py-2">
-                            <i class="bi bi-geo-alt me-2"></i>Lokasi Perangkat
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
 
-<style>
-    /* Tambahan agar kartu membulat sempurna dan bayangan halus */
-    .rounded-4 { border-radius: 16px !important; }
-    .table thead th { border: none; }
-    .card-header { border-bottom: none; }
-</style>
+</div>
 @endsection

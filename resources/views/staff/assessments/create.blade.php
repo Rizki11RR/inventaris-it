@@ -1,98 +1,114 @@
 @extends('layouts.app')
 
-@section('header', 'Input Kondisi Perangkat')
+@section('header', 'Form Penilaian AHP')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row g-4">
-        {{-- Detail Perangkat --}}
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
-                <div class="card-header bg-white border-0 pt-4 px-4">
-                    <h6 class="fw-bold mb-0">Informasi Perangkat</h6>
-                </div>
-                <div class="card-body px-4 pb-4">
-                    <div class="mb-3">
-                        <label class="small text-muted d-block">Kode Aset</label>
-                        <span class="fw-bold">{{ $asset->kode_aset }}</span>
+<div class="container-fluid py-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="mb-4 shadow-sm" style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 1rem;">
+                <div class="p-4 d-flex align-items-center">
+                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-4 shadow-sm" style="width: 60px; height: 60px;">
+                        <i class="bi bi-laptop fs-3"></i>
                     </div>
-                    <div class="mb-3">
-                        <label class="small text-muted d-block">Nama Perangkat</label>
-                        <span class="fw-bold text-primary">{{ $asset->nama_perangkat }}</span>
-                    </div>
-                    <div class="mb-3">
-                        <label class="small text-muted d-block">Tanggal Pengadaan</label>
-                        <span>{{ \Carbon\Carbon::parse($asset->tanggal_pengadaan)->format('d M Y') }}</span>
-                    </div>
-                    <div class="mb-0 text-muted small">
-                        <i class="bi bi-info-circle me-1"></i> Penilaian ini akan diproses menggunakan metode AHP untuk menentukan rekomendasi kondisi akhir.
+                    <div>
+                        <h5 class="fw-bold mb-1 text-dark">{{ $asset->nama_perangkat }}</h5>
+                        <p class="mb-0 text-secondary">
+                            <i class="bi bi-upc-scan me-2"></i><span class="fw-semibold text-primary">{{ $asset->kode_aset }}</span> &bull; 
+                            <i class="bi bi-geo-alt mx-1"></i>{{ $asset->location->nama_lokasi }}
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        {{-- Form Penilaian --}}
-        <div class="col-md-8">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div class="card-header bg-primary text-white border-0 py-3 px-4">
-                    <h5 class="fw-bold mb-0">Form Kriteria Penilaian</h5>
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 pt-4 pb-2 px-4">
+                    <h5 class="fw-bold text-dark mb-0"><i class="bi bi-list-check me-2 text-primary"></i> Kriteria Kondisi</h5>
+                    <small class="text-muted">Pilih satu sub-kriteria yang paling menggambarkan kondisi perangkat.</small>
                 </div>
-                <div class="card-body p-4">
-                    <form action="{{ route('staff.assessments.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="asset_id" value="{{ $asset->id }}">
-
-                        @foreach($criterias as $criteria)
-                        <div class="mb-4 p-3 rounded-4 border bg-light bg-opacity-50">
-                            <label class="fw-bold mb-2 d-flex align-items-center">
-                                <span class="badge bg-primary me-2">{{ $loop->iteration }}</span>
-                                {{ $criteria->nama_kriteria }}
-                            </label>
-                            <p class="small text-muted mb-3">{{ $criteria->penjelasan ?? 'Berikan penilaian skala 1-5 berdasarkan kondisi riil perangkat.' }}</p>
+                
+                <form action="{{ route('staff.assessments.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="asset_id" value="{{ $asset->id }}">
+                    
+                    <div class="card-body px-4 pb-4">
+                        @foreach($criterias as $kriteria)
+                        <div class="mb-4 p-0 bg-white rounded-4 border overflow-hidden">
+                            <div class="bg-light p-3 border-bottom">
+                                <label class="fw-bold text-dark mb-0">
+                                    {{ $loop->iteration }}. {{ $kriteria->nama_kriteria }}
+                                </label>
+                            </div>
                             
-                            <div class="d-flex justify-content-between gap-2">
-                                @foreach($criteria->subCriterias->sortBy('nilai') as $sub)
-                                <div class="flex-fill">
-                                    <input type="radio" class="btn-check" name="criteria[{{ $criteria->id }}]" 
-                                           id="cri_{{ $criteria->id }}_{{ $sub->id }}" 
-                                           value="{{ $sub->nilai }}" required>
-                                    <label class="btn btn-outline-primary w-100 rounded-3 py-2 h-100 d-flex flex-column align-items-center justify-content-center shadow-sm" 
-                                           for="cri_{{ $criteria->id }}_{{ $sub->id }}">
-                                        <span class="fw-bold fs-5">{{ $sub->nilai }}</span>
-                                        <small class="x-small text-center mt-1" style="font-size: 0.7rem;">{{ $sub->nama_sub_kriteria }}</small>
-                                    </label>
+                            <div class="p-2">
+                                @foreach($kriteria->subCriterias as $sub)
+                                <div class="col-12 mb-2">
+                                    <div class="form-check custom-option p-0">
+                                        <input class="form-check-input visually-hidden" type="radio" 
+                                                name="criteria[{{ $kriteria->id }}]" 
+                                                id="sub_{{ $sub->id }}" 
+                                                value="{{ $sub->nilai }}" 
+                                                required>
+                                            
+                                        <label class="form-check-label d-flex align-items-center p-3 border rounded-3 w-100" 
+                                            for="sub_{{ $sub->id }}" 
+                                            style="cursor: pointer; transition: 0.2s;">
+                                            
+                                            <div class="me-3 d-flex align-items-center">
+                                                <i class="bi bi-circle text-muted icon-uncheck fs-5"></i>
+                                                <i class="bi bi-check-circle-fill text-primary d-none icon-check fs-5"></i>
+                                            </div>
+                                            
+                                            <div class="w-100">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="d-block fw-bold text-dark mb-0">{{ $sub->nama_sub }}</span>
+                                                    <span class="badge bg-light text-dark border px-2 py-1">Skor: {{ $sub->nilai }}</span>
+                                                </div>
+                                                
+                                                @if(isset($sub->deskripsi))
+                                                <p class="mb-0 mt-1 text-secondary" style="font-size: 0.85rem;">
+                                                    {{ $sub->deskripsi }}
+                                                </p>
+                                                @endif
+                                                
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>
                         </div>
                         @endforeach
-
-                        <div class="mb-3">
-                            <label class="fw-bold mb-2">Catatan Tambahan (Opsional)</label>
-                            <textarea name="catatan" class="form-control rounded-3" rows="3" placeholder="Contoh: Baterai sudah drop, layar ada dead pixel..."></textarea>
-                        </div>
-
-                        <div class="text-end mt-4">
-                            <a href="{{ route('staff.assets.index') }}" class="btn btn-light rounded-pill px-4 me-2 border">Batal</a>
-                            <button type="submit" class="btn btn-primary rounded-pill px-5 shadow">
-                                <i class="bi bi-calculator me-2"></i>Simpan & Proses AHP
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    
+                    <div class="card-footer bg-white border-top-0 px-4 pb-4 text-end">
+                        <a href="{{ route('staff.assessments.index') }}" class="btn btn-light border rounded-pill px-4 me-2">Batal</a>
+                        <button type="submit" class="btn btn-primary rounded-pill px-5 shadow-sm fw-bold">
+                            <i class="bi bi-calculator me-2"></i> Simpan Penilaian
+                        </button>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
 </div>
 
 <style>
-    .btn-check:checked + .btn-outline-primary {
-        background-color: var(--bs-primary);
-        color: white;
-        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3) !important;
+    /* Styling agar pilihan yang diklik berubah warna */
+    .form-check-input:checked + .form-check-label {
+        background-color: #eef4ff;
+        border-color: #0d6efd !important;
     }
-    .x-small {
-        line-height: 1.1;
+    .form-check-input:checked + .form-check-label .icon-uncheck {
+        display: none;
+    }
+    .form-check-input:checked + .form-check-label .icon-check {
+        display: inline-block !important;
+    }
+    .form-check-label:hover {
+        background-color: #f8f9fa;
     }
 </style>
 @endsection
