@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asset_id')->constrained()->onDelete('cascade');
-            $table->double('total_score'); // Hasil perhitungan akhir AHP
-            $table->string('rekomendasi'); // Contoh: Layak, Perbaikan, atau Diganti
+            $table->foreignId('asset_id')->constrained('assets')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users'); // TAMBAHKAN INI
+            $table->double('total_score');
+            $table->string('rekomendasi');
+            $table->timestamp('tanggal_penilaian');
             $table->timestamps();
         });
     }

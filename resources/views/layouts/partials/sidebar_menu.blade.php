@@ -46,8 +46,11 @@
 @elseif($role == 'staff')
     <div class="px-4 mt-3 mb-2 small text-muted fw-bold">INVENTARIS</div>
     <a href="{{ route('staff.assets.index') }}" class="nav-link {{ request()->routeIs('staff.assets.*') ? 'active' : '' }}"><i class="bi bi-display"></i> Data Perangkat</a>
-    <a href="{{ route('staff.assessments.index') }}" class="nav-link {{ request()->routeIs('staff.assessments.*') ? 'active' : '' }}">
+    <a href="{{ route('staff.assessments.index') }}" class="nav-link {{ request()->routeIs('staff.assessments.index', 'staff.assessments.create') ? 'active' : '' }}">
         <i class="bi bi-clipboard-check"></i> <span>Penilaian Kondisi</span>
+    </a>
+    <a href="{{ route('staff.assessments.history') }}" class="nav-link {{ request()->routeIs('staff.assessments.history') ? 'active' : '' }}">
+        <i class="bi bi-clock-history"></i> Riwayat Penilaian
     </a>
     <a href="#" class="nav-link"><i class="bi bi-tools"></i> Riwayat Perawatan</a>
 

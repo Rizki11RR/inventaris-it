@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/staff/assets/{asset}', [AssetController::class, 'update'])->name('staff.assets.update');
         Route::get('/staff/assessments', [AssessmentController::class, 'index'])->name('staff.assessments.index');
         Route::get('/staff/assessments/calculate/{asset}', [AssessmentController::class, 'create'])->name('staff.assessments.create');
+        Route::post('/staff/assessments/store', [AssessmentController::class, 'store'])->name('staff.assessments.store');
+        Route::get('/staff/assessments/history', [AssessmentController::class, 'history'])->name('staff.assessments.history');
     });
 
     Route::middleware(['role:manajemen'])->group(function () {
