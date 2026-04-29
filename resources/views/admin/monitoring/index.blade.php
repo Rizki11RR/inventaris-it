@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Monitoring Penilaian AHP')
+@section('title', 'Monitoring Penilaian AHP')
 
 @section('content')
 <div class="container-fluid py-3">

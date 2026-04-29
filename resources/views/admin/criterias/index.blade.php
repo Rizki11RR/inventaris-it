@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Kriteria & Bobot AHP')
+@section('title', 'Data Kriteria & Bobot')
 
 @section('content')
 <div class="container-fluid py-3">

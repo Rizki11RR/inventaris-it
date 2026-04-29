@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Proses AHP: Perbandingan Kriteria')
+@section('title', 'Perbandingan Kriteria')
 
 @section('content')
 <div class="container-fluid">
