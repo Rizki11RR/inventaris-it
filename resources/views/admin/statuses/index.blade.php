@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Master Status Perangkat')
+@section('title', 'Master Status')
 
 @section('content')
 <div class="container-fluid py-3">

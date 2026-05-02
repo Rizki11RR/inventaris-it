@@ -41,16 +41,6 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label text-muted small fw-bold">VENDOR / MERK</label>
-                            <select name="vendor_id" class="form-select rounded-3" required>
-                                @foreach($vendors as $ven)
-                                    <option value="{{ $ven->id }}" {{ $asset->vendor_id == $ven->id ? 'selected' : '' }}>
-                                        {{ $ven->nama_vendor }} ({{ $ven->merk }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6">
                             <label class="form-label text-muted small fw-bold">STATUS</label>
                             <select name="status_id" class="form-select rounded-3" required>
                                 @foreach($statuses as $stat)

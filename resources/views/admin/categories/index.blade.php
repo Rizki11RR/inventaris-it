@@ -20,7 +20,6 @@
                         <tr>
                             <th class="ps-4 text-start">NAMA KATEGORI</th>
                             <th>DESKRIPSI / KETERANGAN</th>
-                            <th>JUMLAH PERANGKAT</th>
                             <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
@@ -32,11 +31,6 @@
                             </td>
                             <td>
                                 <span class="text-secondary">{{ $category->deskripsi ?? '-' }}</span>
-                            </td>
-                            <td>
-                                <span class="badge bg-info-subtle text-info border border-info rounded-pill px-3 py-2">
-                                    {{ $category->assets_count }} Perangkat
-                                </span>
                             </td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">

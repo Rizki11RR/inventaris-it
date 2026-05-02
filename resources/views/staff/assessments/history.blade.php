@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Riwayat Penilaian Kondisi')
+@section('title', 'Riwayat Penilaian')
 
 @section('content')
 <div class="container-fluid py-3">
@@ -75,29 +76,6 @@
                                 </button>
                             </td>
                         </tr>
-
-                        <div class="modal fade" id="detailScoreModal{{ $history->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content border-0">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title fw-bold">Detail Perhitungan AHP</h6>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body p-4">
-                                        <div class="text-center mb-4">
-                                            <h2 class="fw-bold text-primary mb-0">{{ number_format($history->total_score, 4) }}</h2>
-                                            <small class="text-muted">Total Skor Akhir</small>
-                                        </div>
-                                        <div class="p-3 bg-light rounded-4">
-                                            <p class="small text-muted mb-0">
-                                                Hasil ini didapatkan dari perkalian bobot global kriteria 
-                                                dengan nilai kondisi yang diinput oleh staff di lapangan.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         @empty
                         <tr>
                             <td colspan="5" class="py-5 text-muted text-center">
@@ -112,4 +90,30 @@
         </div>
     </div>
 </div>
+
+@foreach($assessments as $history)
+<div class="modal fade" id="detailScoreModal{{ $history->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">Detail Perhitungan AHP</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-primary mb-0">{{ number_format($history->total_score, 4) }}</h2>
+                    <small class="text-muted">Total Skor Akhir</small>
+                </div>
+                <div class="p-3 bg-light rounded-4">
+                    <p class="small text-muted mb-0">
+                        Hasil ini didapatkan dari perkalian bobot global kriteria 
+                        dengan nilai kondisi yang diinput oleh staff di lapangan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 @endsection

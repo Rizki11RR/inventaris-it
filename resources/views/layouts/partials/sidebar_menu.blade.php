@@ -25,11 +25,6 @@
         <i class="bi bi-geo-alt"></i> Data Lokasi
     </a>
 
-    <a href="{{ route('vendors.index') }}" 
-    class="nav-link {{ request()->routeIs('vendors.*') ? 'active' : '' }}">
-        <i class="bi bi-building"></i> Data Vendor / Merk
-    </a>
-
     <a href="{{ route('statuses.index') }}" 
     class="nav-link {{ request()->routeIs('statuses.*') ? 'active' : '' }}">
         <i class="bi bi-info-circle"></i> Status Perangkat

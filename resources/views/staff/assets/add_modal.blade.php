@@ -38,15 +38,6 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label text-muted small fw-bold">VENDOR / MERK <span class="text-danger">*</span></label>
-                            <select name="vendor_id" class="form-select rounded-3" required>
-                                <option value="">-- Pilih Vendor --</option>
-                                @foreach($vendors as $vendor)
-                                    <option value="{{ $vendor->id }}">{{ $vendor->nama_vendor }} ({{ $vendor->merk }})</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6">
                             <label class="form-label text-muted small fw-bold">STATUS AWAL <span class="text-danger">*</span></label>
                             <select name="status_id" class="form-select rounded-3" required>
                                 @foreach($statuses as $stat)

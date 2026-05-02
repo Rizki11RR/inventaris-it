@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Location;
-use App\Models\Vendor;
 use App\Models\Status;
 use Illuminate\Http\Request;
 
@@ -13,13 +12,12 @@ class AssetController extends Controller
 {
     public function index()
     {
-        $assets = Asset::with(['category', 'location', 'vendor', 'status'])->get();
+        $assets = Asset::with(['category', 'location', 'status'])->get();
         $categories = Category::all();
         $locations = Location::all();
-        $vendors = Vendor::all();
         $statuses = Status::all();
 
-        return view('staff.assets.index', compact('assets', 'categories', 'locations', 'vendors', 'statuses'));
+        return view('staff.assets.index', compact('assets', 'categories', 'locations', 'statuses'));
     }
 
     public function store(Request $request)
@@ -29,7 +27,6 @@ class AssetController extends Controller
             'nama_perangkat' => 'required',
             'category_id' => 'required|exists:categories,id',
             'location_id' => 'required|exists:locations,id',
-            'vendor_id' => 'required|exists:vendors,id',
             'status_id' => 'required|exists:statuses,id',
             'tanggal_pengadaan' => 'required|date',
         ]);
@@ -46,7 +43,6 @@ class AssetController extends Controller
             'nama_perangkat' => 'required',
             'category_id' => 'required|exists:categories,id',
             'location_id' => 'required|exists:locations,id',
-            'vendor_id' => 'required|exists:vendors,id',
             'status_id' => 'required|exists:statuses,id',
             'tanggal_pengadaan' => 'required|date',
         ]);

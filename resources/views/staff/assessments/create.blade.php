@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Form Penilaian AHP')
+@section('title', 'Tambah Penilaian')
 
 @section('content')
 <div class="container-fluid py-3">

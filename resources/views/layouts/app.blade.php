@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | Inventaris IT</title>
+    <title>@yield('title', $title ?? 'Halaman') | Inventaris IT</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,6 +37,15 @@
             background: #ffffff; 
             border-right: 1px solid #e2e8f0; 
             z-index: 1000; 
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 10px;
         }
         .brand-section { 
             padding: 24px; 
@@ -139,7 +150,11 @@
 <body>
 
 <aside class="sidebar">
-    <div class="brand-section text-center"><i class="bi bi-cpu-fill"></i> IMUX CORP</div>
+    <div class="brand-section d-flex justify-content-center align-items-center text-center py-3">
+        <a href="{{ route(Auth::user()->role . '.dashboard') }}" class="text-decoration-none">
+            <img src="{{ asset('img/logo.png') }}" style="height: 80px; width: auto;" class="d-block mx-auto mb-2">
+        </a>
+    </div>
     <div class="nav nav-pills flex-column mt-4">
         @include('layouts.partials.sidebar_menu')
     </div>

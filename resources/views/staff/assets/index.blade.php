@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Manajemen Data Perangkat IT')
+@section('title', 'Daftar Aset')
 
 @section('content')
 <div class="container-fluid py-3">
@@ -31,7 +32,6 @@
                         <tr>
                             <td class="text-start ps-4">
                                 <div class="fw-bold text-dark">{{ $asset->nama_perangkat }}</div>
-                                <div class="small text-primary fw-semibold">{{ $asset->kode_aset }} &bull; <span class="text-muted fw-normal">{{ $asset->vendor->merk ?? '-' }}</span></div>
                             </td>
                             <td>
                                 <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">{{ $asset->category->nama_kategori }}</span>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header', 'Hasil Perhitungan AHP')
+@section('title', 'Hasil AHP')
 
 @section('content')
 <div class="container-fluid">
