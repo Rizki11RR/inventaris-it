@@ -47,9 +47,8 @@
             <div class="col-md-5">
                 <div class="text-center mb-4">
                     <div class="brand-logo mb-2">
-                        <i class="bi bi-cpu-fill"></i> IMUX CORP
+                        <img src="{{ asset('img/logo.png') }}" style="height: 150px; width: auto;" class="mx-auto mb-2">
                     </div>
-                    <p class="text-muted small">Sistem Informasi Inventaris & Penilaian IT</p>
                 </div>
 
                 <div class="login-card">
@@ -61,7 +60,7 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="email" class="form-label small fw-bold text-muted">ALAMAT EMAIL</label>
+                            <label for="email" class="form-label small fw-bold text-muted">EMAIL</label>
                             <input id="email" type="email" name="email" 
                                    class="form-control form-control-imux @error('email') is-invalid @enderror" 
                                    value="{{ old('email') }}" required autofocus placeholder="nama@perusahaan.com">
