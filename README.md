@@ -75,13 +75,4 @@ Sistem penilaian menggunakan dua tabel utama yang saling berelasi:
 * **Sub-Criterias**: Menyimpan bobot nilai dari setiap kriteria untuk proses kalkulasi.
 
 ---
-
-## 📝 Informasi Pengembang
-* **Nama**: Siti Nasekha
-* **Instansi**: UNIVERSITAS PAMULANG
-* **Tujuan**: Undergraduate Thesis (Skripsi)
-* **Kontak**: 221011403357@unpam.ac.id
-
----
-
 © 2026 - IMUX Corp Inventaris IT System
