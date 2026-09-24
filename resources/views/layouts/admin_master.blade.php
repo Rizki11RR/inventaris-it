@@ -18,7 +18,6 @@
     <div class="sidebar-brand">
         <a href="{{ route(Auth::user()->role . '.dashboard') }}" class="text-decoration-none d-flex align-items-center gap-3">
             <img src="{{ asset('img/logo.png') }}" alt="Logo" style="height: 36px;">
-            <span class="sidebar-brand-text">Inventaris IT</span>
         </a>
     </div>
     <nav class="sidebar-nav">
