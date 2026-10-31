@@ -69,9 +69,11 @@
                                 <div class="text-muted" style="font-size: 0.7rem;">Staff IT</div>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-light border text-primary" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#detailScoreModal{{ $history->id }}">
+                                <button type="button"
+                                        class="btn btn-sm btn-light border text-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#detailScoreModal"
+                                        data-score="{{ number_format($history->total_score, 4) }}">
                                     <i class="bi bi-eye"></i> Skor
                                 </button>
                             </td>
@@ -91,22 +93,21 @@
     </div>
 </div>
 
-@foreach($assessments as $history)
-<div class="modal fade" id="detailScoreModal{{ $history->id }}" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="detailScoreModal" tabindex="-1" aria-labelledby="detailScoreModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header">
-                <h6 class="modal-title fw-bold">Detail Perhitungan AHP</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h6 class="modal-title fw-bold" id="detailScoreModalLabel">Detail Perhitungan AHP</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body p-4">
                 <div class="text-center mb-4">
-                    <h2 class="fw-bold text-primary mb-0">{{ number_format($history->total_score, 4) }}</h2>
+                    <h2 class="fw-bold text-primary mb-0" id="detailScoreValue">-</h2>
                     <small class="text-muted">Total Skor Akhir</small>
                 </div>
                 <div class="p-3 bg-light rounded-4">
                     <p class="small text-muted mb-0">
-                        Hasil ini didapatkan dari perkalian bobot global kriteria 
+                        Hasil ini didapatkan dari perkalian bobot global kriteria
                         dengan nilai kondisi yang diinput oleh staff di lapangan.
                     </p>
                 </div>
@@ -114,6 +115,13 @@
         </div>
     </div>
 </div>
-@endforeach
+
+@push('scripts')
+<script>
+    document.getElementById('detailScoreModal')?.addEventListener('show.bs.modal', function (event) {
+        document.getElementById('detailScoreValue').textContent = event.relatedTarget?.dataset.score ?? '-';
+    });
+</script>
+@endpush
 
 @endsection
