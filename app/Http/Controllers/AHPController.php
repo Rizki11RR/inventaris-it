@@ -62,7 +62,7 @@ class AHPController extends Controller
             $matrix[$row->id][$col->id] = $row->id === $col->id ? 1 : optional(CriteriaComparison::where('criteria_id1', $row->id)->where('criteria_id2', $col->id)->first())->nilai;
         }
         try { $result = (new AhpCalculator)->calculate($matrix); }
-        catch (InvalidArgumentException $e) { return redirect()->route('ahp.index')->withErrors(['ratio' => $e->getMessage()]); }
+        catch (InvalidArgumentException $e) { return redirect()->route('ahp.comparisons')->withErrors(['ratio' => $e->getMessage()]); }
         $bobot = $result['weights'];
         foreach ($bobot as $id => $weight) Criteria::whereKey($id)->update(['bobot_global' => $weight]);
         return view('admin.ahp.results', ['criterias' => $criterias, 'matrix' => $matrix, 'totalKolom' => $result['totals']] + $result + ['bobot' => $bobot]);
