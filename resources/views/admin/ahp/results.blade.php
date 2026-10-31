@@ -14,9 +14,9 @@
     {{-- Ringkasan Konsistensi --}}
     <div class="row mb-4 g-3">
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 {{ $isConsistent ? 'bg-success' : 'bg-danger' }} text-white h-100">
+            <div class="card border-0 shadow-sm rounded-4 {{ $isConsistent ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} h-100">
                 <div class="card-body p-4">
-                    <h6 class="small text-uppercase opacity-75">Status Konsistensi</h6>
+                    <h6 class="small text-uppercase">Status Konsistensi</h6>
                     <h2 class="fw-bold mb-0">{{ $isConsistent ? 'Konsisten' : 'Tidak Konsisten' }}</h2>
                     <p class="small mb-0 mt-2">{{ $cr === null ? 'CR tidak tersedia untuk n kurang dari 3.' : ($isConsistent ? 'Matriks memenuhi batas CR ≤ 0.1.' : 'Matriks perlu diperiksa kembali.') }}</p>
                 </div>
