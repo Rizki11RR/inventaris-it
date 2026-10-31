@@ -5,6 +5,16 @@
 
 @section('content')
 <div class="container-fluid">
+    @if ($errors->any())
+        <div class="alert alert-danger border-0 shadow-sm" role="alert">
+            <strong>Perhitungan belum dapat dijalankan.</strong>
+            <ul class="mb-0 mt-2">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     {{-- Info Card --}}
     <div class="alert alert-primary border-0 shadow-sm rounded-4 mb-4 d-flex align-items-center p-3">
         <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
