@@ -185,15 +185,16 @@ function prosesNormalisasi() {
     const criterias = {!! $criterias->pluck('nama_kriteria')->toJson() !!};
     let totals = [];
 
-    // 1. Ambil Total Kolom (Pastikan total kolom sudah akurat)
+    // 1. Ambil total kolom dari nilai presisi, bukan teks yang sudah dibulatkan.
     for (let j = 0; j < n; j++) {
-        let t = parseFloat($(`#total_col_${j}`).text());
-        if (isNaN(t) || t === 0) { 
-            alert('Total kolom masih nol. Pastikan semua input sudah terisi!'); 
-            return; 
+        let t = parseFloat($(`#total_col_${j}`).data('raw-total'));
+        if (!Number.isFinite(t) || t <= 0) {
+            alert('Total kolom masih nol. Pastikan semua input sudah terisi!');
+            return;
         }
         totals.push(t);
     }
+    $('#res_n').text(n);
 
     // 2. Reset Tabel Normalisasi
     $('#bodyNormalisasi').empty();
@@ -246,17 +247,26 @@ function prosesNormalisasi() {
 
     let ci = (lambdaMax - n) / (n - 1);
     let riTable = {1: 0, 2: 0, 3: 0.58, 4: 0.9, 5: 1.12, 6: 1.24, 7: 1.32, 8: 1.41, 9: 1.45};
-    let ri = riTable[n] || 1.45;
-    let cr = (ri > 0) ? ci / ri : 0;
+    // Do not use || here: RI=0 is valid for n <= 2.
+    let ri = Object.prototype.hasOwnProperty.call(riTable, n) ? riTable[n] : null;
+    if (ri === null) {
+        alert('Jumlah kriteria harus antara 2 dan 9.');
+        return;
+    }
+    let cr = ri > 0 ? ci / ri : null;
 
     // 5. Tampilkan ke UI
+    $('#res_n').text(n);
     $('#res_lambda').text(lambdaMax.toFixed(4));
     $('#res_ci').text(ci.toFixed(4));
-    $('#res_cr').text(cr.toFixed(4));
+    $('#res_ri').text(ri.toFixed(2));
+    $('#res_cr').text(cr === null ? 'N/A' : cr.toFixed(4));
 
     let statusBox = $('#status-cr');
     statusBox.removeClass('alert-success alert-danger');
-    if (cr <= 0.1) {
+    if (cr === null) {
+        statusBox.addClass('alert-secondary').html('<b>TIDAK TERSEDIA:</b> CR tidak dapat dihitung untuk n kurang dari 3.');
+    } else if (cr <= 0.1) {
         statusBox.addClass('alert-success').html('<b>KONSISTEN:</b> Nilai CR memenuhi syarat (≤ 0.1)');
     } else {
         statusBox.addClass('alert-danger').html('<b>TIDAK KONSISTEN:</b> Nilai CR > 0.1, periksa kembali input Anda.');
@@ -296,7 +306,7 @@ $(document).ready(function() {
                 }
                 total += cellVal;
             }
-            $(`#total_col_${j}`).text(total.toFixed(3));
+            $(`#total_col_${j}`).data('raw-total', total).text(total.toFixed(3));
         }
     }
 

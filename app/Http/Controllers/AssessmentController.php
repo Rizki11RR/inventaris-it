@@ -33,18 +33,27 @@ class AssessmentController extends Controller
 
     public function store(Request $request)
     {
+        $criterias = \App\Models\Criteria::all();
         $request->validate([
             'asset_id' => 'required|exists:assets,id',
-            'criteria' => 'required|array', 
+            'criteria' => ['required', 'array', 'size:' . $criterias->count()],
+            'criteria.*' => 'required|integer|between:1,5',
         ]);
+        if (Assessment::where('asset_id', $request->asset_id)->exists()) {
+            return back()->withErrors(['asset_id' => 'Aset sudah dinilai.'])->withInput();
+        }
+        $submitted = array_map('intval', array_keys($request->criteria));
+        $expected = $criterias->pluck('id')->map(fn ($id) => (int) $id)->all();
+        sort($submitted); sort($expected);
+        if ($submitted !== $expected || $criterias->contains(fn ($criteria) => $criteria->bobot_global === null)) {
+            return back()->withErrors(['criteria' => 'Semua kriteria harus dinilai dan bobot AHP harus tersedia.'])->withInput();
+        }
 
         $totalScore = 0;
 
-        foreach ($request->criteria as $criteriaId => $nilaiInput) {
-            $criteria = \App\Models\Criteria::find($criteriaId);
-            
-            // Ambil bobot kriteria hasil hitung AHP Admin
-            $bobotKriteria = $criteria->bobot_global ?? 0;
+        foreach ($criterias as $criteria) {
+            $nilaiInput = $request->criteria[$criteria->id];
+            $bobotKriteria = $criteria->bobot_global;
 
             // Rumus AHP: Nilai Input (skala 1-5) * Bobot Global Kriteria
             // Kita bagi 5 agar nilainya ternormalisasi ke 0-1 jika skala Anda 1-5
