@@ -19,8 +19,11 @@ class AhpCalculator
                 throw new InvalidArgumentException('Matriks perbandingan tidak lengkap.');
             }
             foreach ($ids as $col) {
-                if (!array_key_exists($col, $matrix[$row]) || !is_numeric($matrix[$row][$col]) || (float) $matrix[$row][$col] <= 0) {
-                    throw new InvalidArgumentException('Nilai matriks harus numerik dan lebih besar dari nol.');
+                if (!array_key_exists($col, $matrix[$row]) || $matrix[$row][$col] === null || $matrix[$row][$col] === '') {
+                    throw new InvalidArgumentException("Perbandingan kriteria {$row} dengan {$col} belum diisi.");
+                }
+                if (!is_numeric($matrix[$row][$col]) || (float) $matrix[$row][$col] <= 0) {
+                    throw new InvalidArgumentException("Nilai matriks kriteria {$row} dengan {$col} harus numerik dan lebih besar dari nol.");
                 }
             }
         }
