@@ -55,9 +55,10 @@ class AssessmentController extends Controller
             $nilaiInput = $request->criteria[$criteria->id];
             $bobotKriteria = $criteria->bobot_global;
 
-            // Rumus AHP: Nilai Input (skala 1-5) * Bobot Global Kriteria
-            // Kita bagi 5 agar nilainya ternormalisasi ke 0-1 jika skala Anda 1-5
-            $totalScore += ($bobotKriteria * ($nilaiInput / 5));
+            // Nilai 1 = kondisi terbaik, nilai 5 = kondisi terburuk.
+            // Balik menjadi skor kelayakan sebelum dikalikan bobot global.
+            $nilaiKelayakan = (6 - $nilaiInput) / 5;
+            $totalScore += $bobotKriteria * $nilaiKelayakan;
         }
 
         // Penentuan Rekomendasi berdasarkan totalScore (0.0 - 1.0)
