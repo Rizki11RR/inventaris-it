@@ -29,6 +29,13 @@ class CriteriaController extends Controller
 
         return redirect()->back()->with('success', 'Kriteria berhasil diperbarui!');
     }
+    public function destroy(Criteria $criteria)
+    {
+        $criteria->delete();
+
+        return redirect()->back()->with('success', 'Kriteria berhasil dihapus');
+    }
+
     // CRUD Bobot (Sub-Kriteria)
     public function storeSub(Request $request) {
         $request->validate([
