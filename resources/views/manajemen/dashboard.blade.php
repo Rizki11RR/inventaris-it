@@ -73,9 +73,23 @@
                                         <span class="badge bg-light text-dark border">{{ number_format($wa->total_score, 3) }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3">
-                                            {{ $wa->rekomendasi }}
-                                        </span>
+                                        @if($wa->total_score >= 0.8)
+                                            <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3">
+                                                {{ $wa->rekomendasi }}
+                                            </span>
+                                        @elseif($wa->total_score >= 0.6)
+                                            <span class="badge bg-warning-subtle text-warning border border-warning rounded-pill px-3">
+                                                {{ $wa->rekomendasi }}
+                                            </span>
+                                        @elseif($wa->total_score >= 0.4)
+                                            <span class="badge bg-info-subtle text-info border border-info rounded-pill px-3">
+                                                {{ $wa->rekomendasi }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3">
+                                                {{ $wa->rekomendasi }}
+                                            </span>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty
