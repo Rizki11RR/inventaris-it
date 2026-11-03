@@ -35,7 +35,7 @@ class ManajemenController extends Controller
         // Mengambil semua data dari tabel assessments
         // Serta menarik data asset dan category yang terhubung
         $rekomendasi = \App\Models\Assessment::with(['asset.category'])
-            ->orderBy('total_score', 'desc') // Ranking dari skor tertinggi (Sangat Layak) ke rendah
+            ->orderBy('total_score', 'desc') // Skor kondisi tertinggi = prioritas tindakan tertinggi
             ->get();
 
         return view('manajemen.laporan', compact('rekomendasi'));

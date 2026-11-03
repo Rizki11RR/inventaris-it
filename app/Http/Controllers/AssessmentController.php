@@ -56,20 +56,19 @@ class AssessmentController extends Controller
             $bobotKriteria = $criteria->bobot_global;
 
             // Nilai 1 = kondisi terbaik, nilai 5 = kondisi terburuk.
-            // Balik menjadi skor kelayakan sebelum dikalikan bobot global.
-            $nilaiKelayakan = (6 - $nilaiInput) / 5;
-            $totalScore += $bobotKriteria * $nilaiKelayakan;
+            // Skor AHP tinggi berarti kondisi perangkat lebih buruk.
+            $totalScore += $bobotKriteria * ($nilaiInput / 5);
         }
 
-        // Penentuan Rekomendasi berdasarkan totalScore (0.0 - 1.0)
+        // Rekomendasi mengikuti skor kondisi: skor tinggi membutuhkan tindakan.
         if ($totalScore >= 0.8) {
-            $rekomendasi = 'Sangat Layak';
-        } elseif ($totalScore >= 0.6) {
-            $rekomendasi = 'Layak';
-        } elseif ($totalScore >= 0.4) {
-            $rekomendasi = 'Cukup / Perbaikan';
-        } else {
             $rekomendasi = 'Tidak Layak / Diganti';
+        } elseif ($totalScore >= 0.6) {
+            $rekomendasi = 'Cukup / Perbaikan';
+        } elseif ($totalScore >= 0.4) {
+            $rekomendasi = 'Layak';
+        } else {
+            $rekomendasi = 'Sangat Layak';
         }
 
         // Simpan ke Database

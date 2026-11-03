@@ -56,16 +56,20 @@
                             </td>
                             <td class="text-center">
                                 @if($item->total_score >= 0.8)
-                                    <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3 py-2">
-                                        <i class="bi bi-check-circle-fill me-1"></i> Sangat Layak
+                                    <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-2">
+                                        <i class="bi bi-x-circle-fill me-1"></i> Tidak Layak / Diganti
+                                    </span>
+                                @elseif($item->total_score >= 0.6)
+                                    <span class="badge bg-warning-subtle text-warning border border-warning rounded-pill px-3 py-2">
+                                        <i class="bi bi-exclamation-triangle-fill me-1"></i> Cukup / Perbaikan
                                     </span>
                                 @elseif($item->total_score >= 0.4)
-                                    <span class="badge bg-warning-subtle text-warning border border-warning rounded-pill px-3 py-2">
-                                        <i class="bi bi-exclamation-triangle-fill me-1"></i> Perbaikan
+                                    <span class="badge bg-info-subtle text-info border border-info rounded-pill px-3 py-2">
+                                        <i class="bi bi-check-circle me-1"></i> Layak
                                     </span>
                                 @else
-                                    <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-2">
-                                        <i class="bi bi-x-circle-fill me-1"></i> Ganti Baru
+                                    <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3 py-2">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Sangat Layak
                                     </span>
                                 @endif
                             </td>

@@ -45,11 +45,13 @@
                 <td class="fw-bold text-primary">{{ number_format($item->total_score, 3) }}</td>
                 <td>
                     @if($item->total_score >= 0.8)
-                        <span class="badge bg-success">Sangat Layak</span>
+                        <span class="badge bg-danger">Tidak Layak / Diganti</span>
+                    @elseif($item->total_score >= 0.6)
+                        <span class="badge bg-warning text-dark">Cukup / Perbaikan</span>
                     @elseif($item->total_score >= 0.4)
-                        <span class="badge bg-warning text-dark">Perbaikan</span>
+                        <span class="badge bg-info text-dark">Layak</span>
                     @else
-                        <span class="badge bg-danger">Ganti Baru</span>
+                        <span class="badge bg-success">Sangat Layak</span>
                     @endif
                 </td>
             </tr>
